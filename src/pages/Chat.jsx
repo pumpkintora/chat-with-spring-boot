@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { sendMessage } from '../redux/slices/chat';
+import { useDispatch, useSelector } from "react-redux";
+import { sendMessage } from "../redux/slices/chat";
 // components
 import Divider from "../components/Divider";
 import Footer from "../components/Footer";
@@ -10,7 +10,6 @@ import Header from "../components/Header";
 import Messages from "../components/Messages";
 
 const Chat = () => {
-  
   const [inputMessage, setInputMessage] = useState("");
   const dispatch = useDispatch();
   const { messages, loading, error } = useSelector((state) => state.chat);
@@ -22,28 +21,25 @@ const Chat = () => {
     const data = inputMessage;
 
     const chatMessage = {
-      userId: 1,  // replace with actual user ID
-      chatRoomId: 1,  // replace with actual chat room ID
+      userId: 1, // replace with actual user ID
+      chatRoomId: 1, // replace with actual chat room ID
       content: data,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
     dispatch(sendMessage(chatMessage));
     setInputMessage("");
-
   };
 
   return (
-    <Flex w="100%" h="100vh" justify="center" align="center">
-      <Flex w="40%" h="90%" flexDir="column">
-        <Messages messages={messages} />
-        <Divider />
-        <Footer
-          inputMessage={inputMessage}
-          setInputMessage={setInputMessage}
-          handleSendMessage={handleSendMessage}
-        />
-      </Flex>
-    </Flex>
+    <>
+      <Messages messages={messages} />
+      <Divider />
+      <Footer
+        inputMessage={inputMessage}
+        setInputMessage={setInputMessage}
+        handleSendMessage={handleSendMessage}
+      />
+    </>
   );
 };
 
