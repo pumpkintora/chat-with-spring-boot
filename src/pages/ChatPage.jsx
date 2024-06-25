@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Messages from "../components/Messages";
 
-const Chat = () => {
+const ChatPage = () => {
   const [inputMessage, setInputMessage] = useState("");
   const dispatch = useDispatch();
   const { messages, loading, error } = useSelector((state) => state.chat);
@@ -43,4 +43,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatPage;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ChatRooms from "../components/ChatRooms";
 
-const Home = () => {
+const ChatRoomsPage = () => {
   return <ChatRooms />;
 };
 
-export default Home;
+export default ChatRoomsPage;

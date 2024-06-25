@@ -1,10 +1,4 @@
-import {
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-} from "@chakra-ui/react";
+import { List, ListItem, Link } from "@chakra-ui/react";
 
 const StyledListItem = ({ children }) => {
   return (
@@ -14,7 +8,7 @@ const StyledListItem = ({ children }) => {
       bgColor={"#dde2c6"}
       _hover={{ bgColor: "#bbc5aa", cursor: "pointer" }}
     >
-      {children}
+      <Link href={`/chat/${children}`}>{children}</Link>
     </ListItem>
   );
 };
