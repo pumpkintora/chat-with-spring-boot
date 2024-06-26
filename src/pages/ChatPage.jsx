@@ -31,7 +31,7 @@ const ChatPage = () => {
   };
 
   return (
-    <>
+    <Flex w="40%" h="90%" flexDir="column">
       <Messages messages={messages} />
       <Divider />
       <Footer
@@ -39,7 +39,7 @@ const ChatPage = () => {
         setInputMessage={setInputMessage}
         handleSendMessage={handleSendMessage}
       />
-    </>
+    </Flex>
   );
 };
 

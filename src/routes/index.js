@@ -1,5 +1,9 @@
-import { useRoutes } from "react-router-dom";
-
+import { useRoutes, Navigate } from "react-router-dom";
+// layout
+import NavbarLayout from '../layout/NavbarLayout'
+// guard
+import AuthGuard from "../guard/AuthGuard";
+// pages
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ChatRoomsPage from "../pages/ChatRoomsPage";
@@ -24,17 +28,30 @@ export default function Router() {
       path: "chatrooms",
       element: (
         <AuthGuard>
-          <ChatRoomsPage />
+          <NavbarLayout />
         </AuthGuard>
       ),
+      children: [
+        {
+          path: "",
+          element: <ChatRoomsPage />,
+          index: true,
+        }
+      ]
     },
     {
       path: "chat/:id",
       element: (
         <AuthGuard>
-          <ChatPage />
+          <NavbarLayout />
         </AuthGuard>
       ),
+      children: [
+        {
+          element: <ChatPage />,
+          index: true,
+        }
+      ]
     },
     {
       path: "/",
