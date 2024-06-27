@@ -30,12 +30,10 @@ export function setSession(accessToken, user) {
   localStorage.setItem("user", JSON.stringify(user));
   localStorage.setItem("accessToken", JSON.stringify(accessToken));
   const { exp } = jwtDecode(accessToken);
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   handleTokenExpired(exp)
 }
 
 export function removeSession() {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
-    delete axios.defaults.headers.common.Authorization;
 }

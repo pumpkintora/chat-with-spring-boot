@@ -7,6 +7,8 @@ export const getChatRooms = createAsyncThunk(
   "chatRoom/getChatRooms",
   async ({ userId }, { rejectWithValue }) => {
     try {
+      const accessToken = localStorage.getItem('accessToken')
+      console.log(accessToken)
       const response = await axios.get(`/chatroom/user/${userId}?withUser=false`);
       return response.data;
     } catch (error) {
