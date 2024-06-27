@@ -1,9 +1,10 @@
-import { Flex } from "@chakra-ui/react";
+import { useEffect } from "react";
+// redux
+import { logoutUser } from "./redux/slices/auth";
+// utils
+import { isValidToken, removeSession, setSession } from "./utils/token";
 // routes
 import Router from "./routes";
-// components
-import Header from "./components/Header";
-import Divider from "./components/Divider";
 
 const App = () => {
   return <Router />;

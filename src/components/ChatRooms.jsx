@@ -13,13 +13,10 @@ const StyledListItem = ({ children }) => {
   );
 };
 
-const ChatRooms = () => {
+const ChatRooms = ({ chatrooms }) => {
   return (
     <List spacing={3}>
-      <StyledListItem>Lorem ipsum dolor sit amet</StyledListItem>
-      <StyledListItem>Consectetur adipiscing elit</StyledListItem>
-      <StyledListItem>Integer molestie lorem at massa</StyledListItem>
-      <StyledListItem>Facilisis in pretium nisl aliquet</StyledListItem>
+      {chatrooms.map(cr => <StyledListItem>{cr.name}</StyledListItem>)}
     </List>
   );
 };

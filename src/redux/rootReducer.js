@@ -1,17 +1,12 @@
 // rootReducer.js
-import { combineReducers } from 'redux';
-import chatReducer from './chatSlice';
+import { combineReducers } from "redux";
+import chatroomReducer from "./slices/chatroom";
+import authReducer from "./slices/auth";
 // import userReducer from './userSlice';
 
-const chatPersistConfig = {
-  key: 'chat',
-  storage,
-  keyPrefix: 'redux-',
-  whitelist: [],
-};
-
 const rootReducer = combineReducers({
-  chat: persistReducer(chatPersistConfig, chatReducer),
+  chatroom: chatroomReducer,
+  auth: authReducer,
 });
 
 export default rootReducer;
