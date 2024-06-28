@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config";
+import { isValidToken } from "./token";
 
 const axiosInstance = axios.create({
   baseURL: config.apiBaseUrl,
@@ -7,8 +8,7 @@ const axiosInstance = axios.create({
 // Add a request interceptor
 axiosInstance.interceptors.request.use(function (config) {
   const token = localStorage.getItem('accessToken');
-  config.headers.Authorization =  `Bearer ${token ? JSON.parse(token) : null}`;
-   
+  if (token && isValidToken(JSON.parse(token))) config.headers.Authorization =  `Bearer ${JSON.parse(token)}`;
   return config;
 });
 
