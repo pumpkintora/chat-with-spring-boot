@@ -7,7 +7,6 @@ import AuthGuard from "../guard/AuthGuard";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ChatRoomsPage from "../pages/ChatRoomsPage";
-import ChatPage from "../pages/ChatPage";
 
 export default function Router() {
   return useRoutes([
@@ -35,20 +34,6 @@ export default function Router() {
         {
           path: "",
           element: <ChatRoomsPage />,
-          index: true,
-        }
-      ]
-    },
-    {
-      path: "chat/:id",
-      element: (
-        <AuthGuard>
-          <NavbarLayout />
-        </AuthGuard>
-      ),
-      children: [
-        {
-          element: <ChatPage />,
           index: true,
         }
       ]

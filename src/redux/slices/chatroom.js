@@ -7,9 +7,7 @@ export const getChatRooms = createAsyncThunk(
   "chatRoom/getChatRooms",
   async ({ userId }, { rejectWithValue }) => {
     try {
-      const accessToken = localStorage.getItem('accessToken')
-      console.log(accessToken)
-      const response = await axios.get(`/chatroom/user/${userId}?withUser=false`);
+      const response = await axios.get(`/chatroom/user/${userId}`);
       return response.data;
     } catch (error) {
       return rejectWithValue({ error: error.response.data });
@@ -22,6 +20,7 @@ function objFromArr(arr) {
     acc[cur.chatroomId] = {
       name: cur.name,
       users: cur.users,
+      messages: cur.chatMessages,
     };
     return acc;
   }, {});
@@ -37,7 +36,15 @@ const initialState = {
 const chatRoomSlice = createSlice({
   name: "chatroom",
   initialState,
-  reducers: {},
+  reducers: {
+    addMessageToRoom: (state, action) => {
+      const { roomId, message } = action.payload;
+      if (!state.rooms[roomId]) {
+        state.rooms[roomId] = { messages: [] };
+      }
+      state.rooms[roomId].messages.push(message);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getChatRooms.pending, (state, action) => {
@@ -46,7 +53,7 @@ const chatRoomSlice = createSlice({
       })
       .addCase(getChatRooms.fulfilled, (state, action) => {
         state.loading = false;
-        state.rooms = objFromArr(action.payload)
+        state.rooms = objFromArr(action.payload);
       })
       .addCase(getChatRooms.rejected, (state, action) => {
         const { error } = action.payload;
@@ -55,5 +62,7 @@ const chatRoomSlice = createSlice({
       });
   },
 });
+
+export const { addMessageToRoom } = chatRoomSlice.actions;
 
 export default chatRoomSlice.reducer;

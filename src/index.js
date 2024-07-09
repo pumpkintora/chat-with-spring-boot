@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider as ReduxProvider } from "react-redux";
+// context
+import { WebSocketProvider } from "./context/WebSocketProvider";
 import "./index.css";
 import App from "./App";
 import { persistor, store } from "./redux/store";
@@ -14,7 +16,9 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <ChakraProvider theme={theme}>
         <BrowserRouter>
-          <App />
+          <WebSocketProvider>
+            <App />
+          </WebSocketProvider>
         </BrowserRouter>
       </ChakraProvider>
     </PersistGate>

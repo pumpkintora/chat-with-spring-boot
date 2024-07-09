@@ -1,23 +1,30 @@
-import { List, ListItem, Link } from "@chakra-ui/react";
+import { List, ListItem, Link, Box } from "@chakra-ui/react";
 
-const StyledListItem = ({ children }) => {
+const StyledListItem = ({ children, handleClick }) => {
   return (
     <ListItem
       p={[2, 3]}
       transition={"background-color 0.5s ease"}
       bgColor={"#dde2c6"}
       _hover={{ bgColor: "#bbc5aa", cursor: "pointer" }}
+      onClick={handleClick}
     >
-      <Link href={`/chat/${children}`}>{children}</Link>
+      <Link>{children}</Link>
     </ListItem>
   );
 };
 
-const ChatRooms = ({ chatrooms }) => {
+const ChatRooms = ({ chatrooms, setChatroom }) => {
   return (
-    <List spacing={3}>
-      {chatrooms.map(cr => <StyledListItem>{cr.name}</StyledListItem>)}
-    </List>
+    <Box w={"100%"} h={"100%"} borderRight={"1px solid grey"} p={5}>
+      <List spacing={3}>
+        {chatrooms.map((cr) => (
+          <StyledListItem handleClick={() => setChatroom(cr[0])}>
+            {cr[1].name}
+          </StyledListItem>
+        ))}
+      </List>
+    </Box>
   );
 };
 
