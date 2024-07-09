@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // websocket
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import useWebSocket, { ReadyState } from "react-use-websocket";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 // components
@@ -17,18 +17,6 @@ const ChatPage = () => {
   const [stompClient, setStompClient] = useState(null);
   const [inputMessage, setInputMessage] = useState("");
   const dispatch = useDispatch();
-  // const { messages, loading, error } = useSelector((state) => state.chat);
-  // const { sendMessage, lastMessage, readyState } = useWebSocket("http://localhost:8080/ws");
-
-  // const connectionStatus = {
-  //   [ReadyState.CONNECTING]: 'Connecting',
-  //   [ReadyState.OPEN]: 'Open',
-  //   [ReadyState.CLOSING]: 'Closing',
-  //   [ReadyState.CLOSED]: 'Closed',
-  //   [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  // }[readyState];
-
-  console.log(messages)
 
   useEffect(() => {
     const socket = new SockJS("http://localhost:8080/ws");
@@ -37,8 +25,11 @@ const ChatPage = () => {
       onConnect: () => {
         console.log("Connected");
         newStompClient.subscribe("/topic/public", (message) => {
-          console.log(message)
-          setMessages((prevMessages) => [...prevMessages, { text: message.body }]);
+          console.log(message);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: message.body },
+          ]);
         });
       },
       onDisconnect: () => {
@@ -52,15 +43,22 @@ const ChatPage = () => {
 
     newStompClient.activate();
 
-
-    setStompClient(newStompClient)
+    setStompClient(newStompClient);
 
     return () => newStompClient.deactivate();
   }, []);
 
   const handleSendMessage = () => {
     if (inputMessage.trim()) {
-      stompClient.publish({ destination: "/app/chat.sendMessage", body: inputMessage });
+      stompClient.publish({
+        destination: "/app/chat.sendMessage",
+        body: JSON.stringify({
+          chatroomId: 1,
+          userId: 1,
+          content: "Hello first message",
+          timestamp: new Date().toISOString()
+        }),
+      });
       setInputMessage("");
     }
   };
