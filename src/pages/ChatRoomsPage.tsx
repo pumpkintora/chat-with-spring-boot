@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { Container, Flex, Divider } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // redux
 import { getChatRooms } from "../redux/slices/chatroom";
+import { IRootState } from "../redux/rootReducer";
 // components
 import ChatRooms from "../components/ChatRooms";
 import Chat from "../components/Chat";
 
 const ChatRoomsPage = () => {
-  const [chatroom, setChatroom] = useState(0);
+  const [chatroom, setChatroom] = React.useState<number>(0);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { rooms } = useSelector((state) => state.chatroom);
+  const { user } = useSelector((state: IRootState) => state.auth);
+  const { rooms } = useSelector((state: IRootState) => state.chatroom);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (user) dispatch(getChatRooms({ userId: user.userId }));
   }, [user?.userId]);
 

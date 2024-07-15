@@ -15,10 +15,16 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import axios from "../utils/axios";
+import { IRootState } from "../redux/rootReducer";
 
-function ChatRoomModal({ isOpen, onClose }) {
-  const [name, setName] = React.useState('')
-  const { user } = useSelector(state => state.auth)
+interface ChatRoomModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ChatRoomModal: React.FC<ChatRoomModalProps> = ({ isOpen, onClose }) => {
+  const [name, setName] = React.useState<string | undefined>('')
+  const { user } = useSelector((state: IRootState) => state.auth)
   const handleCreate = async () => {
     axios.post(`/chatroom?name=${name}&email=${user.email}`)
       .then((res) => console.log(res.data))
